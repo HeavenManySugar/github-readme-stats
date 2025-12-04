@@ -169,6 +169,7 @@ const fetchTotalCommits = (variables, token) => {
     method: "get",
     url: `https://api.github.com/search/commits?q=author:${variables.login}`,
     headers: {
+      "User-Agent": "github-readme-stats",
       "Content-Type": "application/json",
       Accept: "application/vnd.github.cloak-preview",
       Authorization: `token ${token}`,
