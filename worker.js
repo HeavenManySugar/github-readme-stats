@@ -26,7 +26,12 @@ import gistCard from "./api/gist.js";
  */
 async function handleRequest(request, env) {
   const url = new URL(request.url);
-  const path = url.pathname;
+  let path = url.pathname;
+
+  // 移除尾隨斜線(除了根路徑)
+  if (path !== "/" && path.endsWith("/")) {
+    path = path.slice(0, -1);
+  }
 
   // 在每次請求時更新環境變數
   if (env) {
