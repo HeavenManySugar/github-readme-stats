@@ -308,7 +308,7 @@ const fetchStats = async (
   stats.contributedTo = user.repositoriesContributedTo.totalCount;
 
   // Retrieve stars while filtering out repositories to be hidden.
-  const allExcludedRepos = [...exclude_repo, ...excludeRepositories];
+  const allExcludedRepos = [...exclude_repo, ...excludeRepositories.value];
   let repoToHide = new Set(allExcludedRepos);
 
   stats.totalStars = user.repositories.nodes
