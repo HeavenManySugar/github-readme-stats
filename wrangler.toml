@@ -5,6 +5,8 @@ name = "github-readme-stats"
 main = "worker.js"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = false
+preview_urls = false
 
 [observability]
 enabled = false
@@ -28,22 +30,15 @@ port = 8787
 # 環境變數 (用於開發環境)
 # 生產環境請使用 wrangler secret put 指令設定敏感資訊
 [vars]
+WHITELIST = "HeavenManySugar"
+GIST_WHITELIST = ""
+# EXCLUDE_REPO = ""
 # NODE_ENV = "production"
 
 # Secrets (需要使用 wrangler secret put <KEY> 指令設定)
 # 範例: wrangler secret put PAT_1
 # - PAT_1: GitHub Personal Access Token (主要)
 # - PAT_2: GitHub Personal Access Token (備用)
-
-# 生產環境配置
-[env.production]
-name = "github-readme-stats-production"
-# vars = { NODE_ENV = "production" }
-
-# 開發環境配置 (可選)
-[env.staging]
-name = "github-readme-stats-staging"
-# vars = { NODE_ENV = "staging" }
 
 # 建置配置
 [build]
@@ -57,6 +52,7 @@ command = ""
 # - 記憶體: 128 MB
 
 # 路由配置 (部署到自訂網域時使用)
-# [[routes]]
-# pattern = "stats.yourdomain.com/*"
-# zone_name = "yourdomain.com"
+[[routes]]
+pattern = "github-readme-stats.zre.tw"
+zone_name = "zre.tw"
+custom_domain = true
