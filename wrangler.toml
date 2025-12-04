@@ -30,7 +30,7 @@ port = 8787
 # 環境變數 (用於開發環境)
 # 生產環境請使用 wrangler secret put 指令設定敏感資訊
 [vars]
-WHITELIST = "anuraghazra,HeavenManySugar"
+WHITELIST = "anuraghazra,ffflabs,HeavenManySugar"
 GIST_WHITELIST = ""
 # EXCLUDE_REPO = ""
 # NODE_ENV = "production"
