@@ -1,0 +1,53 @@
+# Wrangler ignore file
+# 指定不要部署到 Cloudflare Workers 的檔案
+
+# Node modules
+node_modules/
+
+# Tests
+tests/
+*.test.js
+*.bench.js
+__snapshots__/
+
+# Development files
+.git/
+.github/
+.husky/
+scripts/
+
+# Documentation
+*.md
+!CLOUDFLARE_WORKERS.md
+docs/
+
+# Config files
+.eslintrc*
+.prettierrc*
+eslint.config.mjs
+jest.config.js
+jest.bench.config.js
+jest.e2e.config.js
+codecov.yml
+
+# Vercel specific
+vercel.json
+express.js
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

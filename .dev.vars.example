@@ -1,0 +1,15 @@
+# 本地開發環境變數範例
+# 複製此檔案為 .dev.vars 並填入實際的值
+# .dev.vars 檔案會被 .gitignore 忽略,不會被提交到 git
+
+# GitHub Personal Access Token (主要)
+# 從 GitHub Settings -> Developer settings -> Personal access tokens 獲取
+# 需要權限: public_repo, read:user
+PAT_1=ghp_your_github_personal_access_token_here
+
+# GitHub Personal Access Token (備用,選用)
+# 用於當主要 token 達到 rate limit 時切換使用
+# PAT_2=ghp_your_second_github_token_here
+
+# 其他可選的環境變數
+# NODE_ENV=development

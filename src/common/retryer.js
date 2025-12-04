@@ -3,13 +3,26 @@
 import { CustomError } from "./error.js";
 import { logger } from "./log.js";
 
-// Script variables.
+/**
+ * 動態計算可用的 GitHub API tokens 數量
+ * 這樣可以在 Cloudflare Workers 環境中正確工作
+ * @returns {number} 可用的 PAT 數量
+ */
+const getPATsCount = () => {
+  if (!globalThis.process || !globalThis.process.env) {
+    return 0;
+  }
+  return Object.keys(process.env).filter((key) => /PAT_\d*$/.exec(key)).length;
+};
 
-// Count the number of GitHub API tokens available.
-const PATs = Object.keys(process.env).filter((key) =>
-  /PAT_\d*$/.exec(key),
-).length;
-const RETRIES = process.env.NODE_ENV === "test" ? 7 : PATs;
+/**
+ * 獲取重試次數
+ * @returns {number} 重試次數
+ */
+const getRetries = () => {
+  const PATs = getPATsCount();
+  return process.env.NODE_ENV === "test" ? 7 : PATs;
+};
 
 /**
  * @typedef {import("axios").AxiosResponse} AxiosResponse Axios response.
@@ -25,6 +38,8 @@ const RETRIES = process.env.NODE_ENV === "test" ? 7 : PATs;
  * @returns {Promise<any>} The response from the fetcher function.
  */
 const retryer = async (fetcher, variables, retries = 0) => {
+  const RETRIES = getRetries();
+
   if (!RETRIES) {
     throw new CustomError("No GitHub API tokens found", CustomError.NO_TOKENS);
   }
@@ -93,5 +108,5 @@ const retryer = async (fetcher, variables, retries = 0) => {
   }
 };
 
-export { retryer, RETRIES };
+export { retryer, getRetries };
 export default retryer;

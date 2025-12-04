@@ -1,0 +1,47 @@
+# Cloudflare Workers 配置檔案
+# 請參考: https://developers.cloudflare.com/workers/wrangler/configuration/
+
+name = "github-readme-stats"
+main = "worker.js"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 開發模式設定
+[dev]
+port = 8787
+
+# 環境變數 (用於開發環境)
+# 生產環境請使用 wrangler secret put 指令設定敏感資訊
+[vars]
+# NODE_ENV = "production"
+
+# Secrets (需要使用 wrangler secret put <KEY> 指令設定)
+# 範例: wrangler secret put PAT_1
+# - PAT_1: GitHub Personal Access Token (主要)
+# - PAT_2: GitHub Personal Access Token (備用)
+
+# 生產環境配置
+[env.production]
+name = "github-readme-stats-production"
+# vars = { NODE_ENV = "production" }
+
+# 開發環境配置 (可選)
+[env.staging]
+name = "github-readme-stats-staging"
+# vars = { NODE_ENV = "staging" }
+
+# 建置配置
+[build]
+command = ""
+# 如果需要建置步驟,可以在這裡指定
+
+# 限制和配額
+# Cloudflare Workers 免費方案限制:
+# - 每天 100,000 次請求
+# - CPU 時間: 10ms per request
+# - 記憶體: 128 MB
+
+# 路由配置 (部署到自訂網域時使用)
+# [[routes]]
+# pattern = "stats.yourdomain.com/*"
+# zone_name = "yourdomain.com"

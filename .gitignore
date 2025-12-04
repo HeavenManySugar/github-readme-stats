@@ -1,11 +1,17 @@
 .vercel
 .env
+.env.*
+.dev.vars
 node_modules
 *.lock
 .idea/
 coverage
 benchmarks
 vercel_token
+
+# Cloudflare Workers
+.wrangler/
+wrangler.toml.backup
 
 # IDE
 .vscode/*

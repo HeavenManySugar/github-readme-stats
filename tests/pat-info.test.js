@@ -2,9 +2,6 @@
  * @file Tests for the status/pat-info cloud function.
  */
 
-import dotenv from "dotenv";
-dotenv.config();
-
 import {
   afterEach,
   beforeAll,
