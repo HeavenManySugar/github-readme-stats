@@ -44,7 +44,6 @@ async function handleRequest(request, env) {
   const routes = {
     "/": statsCard,
     "/api": statsCard,
-    "/api/": statsCard,
     "/api/pin": repoCard,
     "/api/top-langs": langCard,
     "/api/wakatime": wakatimeCard,

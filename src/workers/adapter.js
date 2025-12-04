@@ -97,7 +97,8 @@ class VercelRequest {
     // 解析 query parameters
     this.query = {};
     url.searchParams.forEach((value, key) => {
-      this.query[key] = value;
+      // 移除參數值中的反斜線 (處理 \& 這類轉義字符)
+      this.query[key] = value.replace(/\\/g, "");
     });
 
     this.method = request.method;
