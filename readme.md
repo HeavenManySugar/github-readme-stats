@@ -90,6 +90,7 @@
     - [Fine-grained token](#fine-grained-token)
   - [On Vercel](#on-vercel)
     - [:film\_projector: Check Out Step By Step Video Tutorial By @codeSTACKr](#film_projector-check-out-step-by-step-video-tutorial-by-codestackr)
+  - [On Cloudflare Workers](#on-cloudflare-workers)
   - [On other platforms](#on-other-platforms)
   - [Available environment variables](#available-environment-variables)
   - [Keep your fork up to date](#keep-your-fork-up-to-date)
@@ -866,6 +867,83 @@ Since the GitHub API only allows 5k requests per hour, my `https://github-readme
 10. Add the PAT as an environment variable named `PAT_1` (as shown).
     ![](https://files.catbox.moe/0yclio.png)
 11. Click deploy, and you're good to go. See your domains to use the API!
+
+</details>
+
+## On Cloudflare Workers
+
+Cloudflare Workers provides a serverless execution environment that allows you to deploy GitHub Readme Stats globally with low latency and generous free tier limits.
+
+> [!NOTE]
+> Cloudflare Workers free tier includes 100,000 requests per day, which should be sufficient for most personal use cases.
+
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/HeavenManySugar/github-readme-stats)
+
+<details>
+ <summary><b>:hammer_and_wrench: Step-by-step guide on setting up your own Cloudflare Workers instance</b></summary>
+
+1.  Fork this repo to your GitHub account.
+2.  Sign up for a [Cloudflare account](https://dash.cloudflare.com/sign-up) if you don't have one.
+3.  Install [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/) (Cloudflare's command-line tool):
+    ```bash
+    npm install -g wrangler
+    ```
+4.  Log in to your Cloudflare account:
+    ```bash
+    wrangler login
+    ```
+5.  Clone your forked repository and navigate to the project directory:
+    ```bash
+    git clone https://github.com/<your-username>/github-readme-stats.git
+    cd github-readme-stats
+    ```
+6.  Install dependencies:
+    ```bash
+    npm install
+    ```
+7.  Create a Personal Access Token (PAT) as described in the [previous section](#first-step-get-your-personal-access-token-pat).
+8.  Add your PAT as a secret to your Cloudflare Worker:
+    ```bash
+    wrangler secret put PAT_1
+    ```
+    When prompted, paste your GitHub Personal Access Token.
+9.  (Optional) If you want to add a backup token:
+    ```bash
+    wrangler secret put PAT_2
+    ```
+10. Update the `wrangler.toml` file with your preferences:
+    - Change the `name` field to your desired worker name
+    - Update `WHITELIST` in the `[vars]` section if needed
+11. Deploy your worker:
+    ```bash
+    npm run workers:deploy
+    ```
+    Or use:
+    ```bash
+    wrangler deploy
+    ```
+12. Your worker is now deployed! You can access it at `https://<your-worker-name>.<your-subdomain>.workers.dev`
+
+### Custom Domain Setup
+
+If you want to use a custom domain with your Cloudflare Worker:
+
+1.  Add your domain to Cloudflare (if not already added).
+2.  Update the `[[routes]]` section in `wrangler.toml`:
+    ```toml
+    [[routes]]
+    pattern = "your-domain.com"
+    zone_name = "your-domain.com"
+    custom_domain = true
+    ```
+3.  Deploy again:
+    ```bash
+    npm run workers:deploy
+    ```
+
+### Monitoring and Logs
+
+You can view your worker's logs and analytics in the [Cloudflare Dashboard](https://dash.cloudflare.com/) under Workers & Pages.
 
 </details>
 
